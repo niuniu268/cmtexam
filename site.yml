@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_facts: no
+
+  pre_tasks:
+    - name: Waiting for connection
+      ansible.builtin.wait_for_connection:
+        timeout: 1800
+    - name: Gathering facts
+      setup:
+  collections:
+    - devsec.hardening
+  roles:
+    - { role: devsec.hardening.os_hardening, become: yes }
+# import playbook yum
+- import_playbook: install-yum.yml

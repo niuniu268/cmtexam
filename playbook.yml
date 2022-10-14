@@ -1,0 +1,14 @@
+---
+- hosts: gitea
+  gather_facts: true
+  become: true
+  roles:
+    - role: do1jlr.gitea
+      vars:
+      gitea_protocol: http
+      gitea_start_ssh: true
+      gitea_fqdn: 'git.example.com'
+      gitea_root_url: 'https://git.example.com'
+      gitea_customize_files: true
+      gitea_custom_search: /home/vagrant/cmt/
+      gitea_customize_files_path: "{{ gitea_custom_search }}/index.html"

@@ -1,0 +1,18 @@
+---
+- hosts: gitea
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: show all packages in the yum
+      ansible.builtin.dnf:
+        list: '*'
+        state: present
+      register: result
+
+
+    - name: print out result
+      debug:
+        var: result.stdout
+    - name: copy content
+      local_action: copy content="{{ vars[item] }}" dest="/home/vagrant/cmt/{{ item }}.log"
+        - result
